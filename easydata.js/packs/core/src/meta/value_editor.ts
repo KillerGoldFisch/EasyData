@@ -39,14 +39,18 @@ export class ValueEditor {
     public accept?: string;
 
     /**
-     * The accept
+     * Gets or sets a value indicating whether the value editor is multiline.
      */
     public multiline?: boolean;
 
-      /**
-     * The values.
-     */
-    public values?: {id: string, text: string}[];
+
+    /** The parent attribute to depend on. */
+    public dependsOnAttr?: string;
+
+    /**
+    * Gets or sets the list of values.
+    */
+    public values?: { id: string, text: string }[];
 
     /** Extra parameters */
     public extraParams?: any;
@@ -77,10 +81,13 @@ export class ValueEditor {
                 this.resType = data.subType;
             }
             if (data.name) {
-                this.name = data.name;     
-            } 
-            if (data.values){
+                this.name = data.name;
+            }
+            if (data.values) {
                 this.values = data.values;
+            }
+            if (data.dependsOnAttr) {
+                this.dependsOnAttr = data.dependsOnAttr;
             }
         }
     }
@@ -88,18 +95,18 @@ export class ValueEditor {
     public getValueText(value: string | string[]): string {
 
         let result = "";
-        
+
         if (!this.values)
             return result;
 
         if (Array.isArray(value)) {
-            for(let item of this.values) {
+            for (let item of this.values) {
                 if (value.indexOf(item.id) >= 0) {
                     result += item.text + ',';
                 }
             }
         } else {
-            for(let item of this.values) {
+            for (let item of this.values) {
                 if (item.id === value) {
                     result += item.text + ',';
                 }

@@ -23,4 +23,6 @@ export interface ValueEditorDTO {
     accept?: string;
     /** The multiline. */
     multiline?: boolean;
+    /** The parent attribute to depend on. */
+    dependsOnAttr?: string;
 }
