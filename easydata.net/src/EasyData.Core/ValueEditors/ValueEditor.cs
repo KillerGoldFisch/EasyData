@@ -343,7 +343,7 @@ namespace EasyData
             }
 
             if (!string.IsNullOrEmpty(DependsOnAttrId)) {
-                await writer.WritePropertyNameAsync("dpsonattr", ct).ConfigureAwait(false);
+                await writer.WritePropertyNameAsync("dependsOnAttr", ct).ConfigureAwait(false);
                 await writer.WriteValueAsync(DependsOnAttrId, ct).ConfigureAwait(false);
             }
         }
@@ -390,7 +390,7 @@ namespace EasyData
                 case "dval":
                     DefaultValue = await reader.ReadAsStringAsync(ct).ConfigureAwait(false);
                     break;
-                case "dpsonattr":
+                case "dependsOnAttr":
                     DependsOnAttrId = await reader.ReadAsStringAsync(ct).ConfigureAwait(false);
                     break;
                 default:
