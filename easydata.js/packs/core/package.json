@@ -30,7 +30,7 @@
     "files": [
         "dist"
     ],
-    "dependencies": {
-        "tsx": "^4.19.4"
+    "devDependencies": {
+      "tsx": "^4.21.0"
     }
 }
