@@ -254,6 +254,14 @@ namespace EasyData
         public virtual DataType ResultType { get; set; } = DataType.Unknown;
 
         /// <summary>
+        /// Gets or sets the ID of attribute which value editor depends on. 
+        /// If DependsOnAttrId is not empty then the corresponding value editor will be updated when value of the attribute with specified ID is changed. 
+        /// This allows to implement cascading editors when values in one editor depend on the value selected in another editor.
+        /// </summary>
+        /// <value>The ID of attribute which value editor depends on.</value>
+        public virtual string DependsOnAttrId { get; set; }
+
+        /// <summary>
         /// Check current editor in model and adds it into Editors list if necessary.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -333,6 +341,11 @@ namespace EasyData
                 await writer.WritePropertyNameAsync("dval", ct).ConfigureAwait(false);
                 await writer.WriteValueAsync(DefaultValue, ct).ConfigureAwait(false);
             }
+
+            if (!string.IsNullOrEmpty(DependsOnAttrId)) {
+                await writer.WritePropertyNameAsync("dependsOnAttr", ct).ConfigureAwait(false);
+                await writer.WriteValueAsync(DependsOnAttrId, ct).ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -376,6 +389,9 @@ namespace EasyData
                     break;
                 case "dval":
                     DefaultValue = await reader.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    break;
+                case "dependsOnAttr":
+                    DependsOnAttrId = await reader.ReadAsStringAsync(ct).ConfigureAwait(false);
                     break;
                 default:
                     await reader.SkipAsync(ct).ConfigureAwait(false);
