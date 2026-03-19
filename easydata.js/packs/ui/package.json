@@ -1,6 +1,6 @@
 {
     "name": "@easydata/ui",
-    "version": "1.5.10",
+    "version": "1.5.11",
     "description": "EasyData.JS: DOM manipulation functions and UI widgets",
     "types": "./dist/types/public_api.d.ts",
     "main": "./dist/easydata.ui.cjs.js",
@@ -39,5 +39,8 @@
     },
     "files": [
         "dist"
-    ]
+    ],
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
 }

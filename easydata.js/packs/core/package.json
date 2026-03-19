@@ -1,8 +1,8 @@
 {
     "name": "@easydata/core",
-    "version": "1.5.10",
+    "version": "1.5.11",
     "description": "EasyData.JS core functions, classes, and data structures",
-    "types": "./dist/types/public_api.d.ts",
+    "types": "./dist/public_api.d.ts",
     "main": "./dist/easydata.core.cjs.js",
     "module": "./dist/easydata.core.esm.js",
     "scripts": {
@@ -30,7 +30,7 @@
     "files": [
         "dist"
     ],
-    "dependencies": {
-        "tsx": "^4.19.4"
+    "devDependencies": {
+      "tsx": "^4.21.0"
     }
 }
