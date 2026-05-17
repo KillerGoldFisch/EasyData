@@ -125,8 +125,17 @@ namespace EasyData.Services
                                 toStringExp = Exp.Call(convertToString, valueExp);
                             }
                             else {
-                                var convertToString = typeof(Convert).GetMethod("ToString", new[] { prop.PropertyType });
-                                toStringExp = Exp.Call(convertToString, Exp.Convert(paramExp, prop.PropertyType));
+#if NET5_0_OR_GREATER
+                                // EF Core 5+ can translate instance .ToString() on numeric types to SQL (CAST)
+                                var numericType = prop.PropertyType.IsNullable()
+                                    ? Nullable.GetUnderlyingType(prop.PropertyType)
+                                    : prop.PropertyType;
+                                var toStringMethod = numericType.GetMethod("ToString", Type.EmptyTypes);
+                                toStringExp = Exp.Call(Exp.Convert(paramExp, numericType), toStringMethod);
+#else
+                                // EF Core 2/3 cannot translate numeric .ToString() to SQL — skip numeric properties
+                                continue;
+#endif
                             }                           
                         }
 
